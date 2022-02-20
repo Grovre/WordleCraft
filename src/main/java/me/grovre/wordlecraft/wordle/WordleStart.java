@@ -9,11 +9,12 @@ import java.util.List;
 
 public class WordleStart {
 
-    public void startGame(Player player) {
-
+    public void startGame(Player player, WordleGameInstance gameInstance) {
         if(isPlayerSafe(player) > 0) {
             player.sendMessage(ChatColor.RED + "You aren't safe! There are monsters nearby!");
+            return;
         }
+        gameInstance.setPlayerInstance(player, true);
     }
 
     public int isPlayerSafe(Player player) {

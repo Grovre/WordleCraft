@@ -1,8 +1,11 @@
 package me.grovre.wordlecraft.wordle;
 
 import com.google.common.io.Files;
+import me.grovre.wordlecraft.Keys;
 import me.grovre.wordlecraft.WordleCraft;
 import org.bukkit.entity.Player;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +15,7 @@ import java.util.Random;
 
 public class WordleAPI {
 
-    public static ArrayList<WordleGameInstance> wordleGameInstances;
+    public static ArrayList<WordleGameInstance> wordleGameInstances = new ArrayList<>();
 
     public static ArrayList<String> getAllWords() {
         // File ops
@@ -58,5 +61,24 @@ public class WordleAPI {
             System.out.println("Given word '" + word + "' does not have a length of 5.");
             return false;
         }
+    }
+
+    public static WordleGameInstance getPlayerGameInstance(Player player) {
+        PersistentDataContainer pdc = player.getPersistentDataContainer();
+        if(!pdc.has(Keys.hasInstanceKey, PersistentDataType.INTEGER)) {
+            System.out.println("The player has never played Wordle before!");
+            return null;
+        }
+        Integer gameIndex = pdc.get(Keys.hasInstanceKey, PersistentDataType.INTEGER);
+        if(gameIndex == null) return null;
+        return wordleGameInstances.get(gameIndex);
+    }
+
+    public static ArrayList<WordleGameInstance> getWordleGameInstances() {
+        return wordleGameInstances;
+    }
+
+    public static boolean hasActiveGameInstance(Player player) {
+        return wordleGameInstances.size() > 0;
     }
 }
