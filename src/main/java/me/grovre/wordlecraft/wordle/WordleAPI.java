@@ -48,4 +48,14 @@ public class WordleAPI {
     public static void setSessionWord() {
         WordleCraft.sessionWord = getRandomWord();
     }
+
+    public static boolean setSessionWord(String word) {
+        if(word.length() == 5) {
+            WordleCraft.sessionWord = word;
+            return true;
+        } else {
+            System.out.println("Given word '" + word + "' does not have a length of 5.");
+            return false;
+        }
+    }
 }
