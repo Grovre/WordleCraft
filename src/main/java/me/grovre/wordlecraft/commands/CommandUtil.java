@@ -33,10 +33,11 @@ public class CommandUtil implements CommandExecutor {
 
         if(args[0].equalsIgnoreCase("help")) {
             if(player != null) {
-                player.sendMessage(ChatColor.AQUA + "With Wordlecraft, you are able to play Wordle within a Minecraft GUI! " +
+                player.sendMessage(ChatColor.AQUA + "With Wordlecraft, you are able to play Wordle within the chat! " +
                         "Just type '/wordle start' and you'll begin your game!\n" +
                         "Once you complete the session word that resets everytime the server restarts, " +
-                        "you'll begin to receive random words");
+                        "you'll begin to receive random words. Any messages that are 5 characters long " +
+                        "are intercepted and played into the game.");
             }
         }
 
