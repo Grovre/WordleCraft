@@ -9,7 +9,11 @@ import java.util.Arrays;
 
 public class WordleGuess {
 
+    private String formattedGuess;
+    private String rawGuess;
+
     public WordleGuess(Player player, WordleGameInstance gameInstance, String guess) {
+        guess = guess.toUpperCase();
         ArrayList<Character> wordChars = new ArrayList<>(5);
         ArrayList<Character> guessChars = new ArrayList<>(5);
         for(char c : gameInstance.getWord().toCharArray()) wordChars.add(c);
@@ -27,11 +31,18 @@ public class WordleGuess {
         }
 
         player.sendMessage(formattedGuess.toString() + ChatColor.AQUA + "\n---------");
-        gameInstance.makeGuess(guess);
     }
 
     public void promptGuess(Player player, WordleGameInstance gameInstance) {
         int guessNumber = gameInstance.getGuesses().size();
         player.sendMessage(ChatColor.AQUA + "Enter guess #" + guessNumber + ": ");
+    }
+
+    public String getFormattedGuess() {
+        return formattedGuess;
+    }
+
+    public String getRawGuess() {
+        return rawGuess;
     }
 }

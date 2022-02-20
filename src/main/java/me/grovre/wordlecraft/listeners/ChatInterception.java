@@ -13,12 +13,16 @@ public class ChatInterception implements Listener {
     public void OnPlayerSendChatMessage(AsyncPlayerChatEvent event) {
 
         Player player = event.getPlayer();
+        System.out.println(player.getName() + " sent a message");
 
         WordleGameInstance gameInstance = WordleAPI.getPlayerGameInstance(player);
-        if(gameInstance == null) return;
+        if(gameInstance == null) {
+            return;
+        }
 
         String guess = event.getMessage();
         if(guess.length() != 5) return;
+        System.out.println("Made a 5 char guess!");
 
         event.setCancelled(true);
 

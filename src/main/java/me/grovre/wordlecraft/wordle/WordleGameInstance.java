@@ -11,14 +11,14 @@ public class WordleGameInstance {
 
     private final Player player;
     private final String word;
-    private ArrayList<String> guesses;
+    private ArrayList<WordleGuess> guesses;
 
     public WordleGameInstance(Player player) {
         System.out.println("New WordleGameInstance");
         this.player = player;
         guesses = new ArrayList<>(5);
         // TODO Word will only be session word if not solved yet
-        word = WordleAPI.getSessionWord();
+        word = WordleAPI.getSessionWord().toUpperCase();
         new WordleStart().startGame(player, this);
 
         // TODO continue the game in steps with chat interception and classes
@@ -51,16 +51,22 @@ public class WordleGameInstance {
         return word;
     }
 
-    public ArrayList<String> getGuesses() {
+    public ArrayList<WordleGuess> getGuesses() {
         return guesses;
     }
 
-    public void makeGuess(String guess) {
-        guess = guess.toLowerCase();
+    public void makeGuess(String guessMade) {
+        WordleGuess guess = new WordleGuess(getPlayer(), this, guessMade);
         guesses.add(guess);
-        if(guess.equals(word)) {
+        if(guess.getRawGuess().equals(getWord())) {
             // TODO Make a congratulations for guessing right
             new WordleEnd();
+        } else if(guesses.size() >= 6) {
+            new WordleEnd();
         }
+    }
+
+    public void addToGuesses(WordleGuess guess) {
+        guesses.add(guess);
     }
 }

@@ -21,11 +21,14 @@ public class CommandUtil implements CommandExecutor {
         Player player = sender instanceof Player ? (Player) sender : null;
         updateLatest(player, sender, command, args);
 
+        // TODO arg tab completion
         if(args[0].equalsIgnoreCase("start")) {
             if(player == null) {
                 System.out.println("Command must be sent from a player!");
+                return true;
             } else if(!player.hasPermission(Permissions.startWordle)) {
                 Permissions.sendNoPermissionsMessage(player);
+                return true;
             } else {
                 new WordleGameInstance(player);
             }
