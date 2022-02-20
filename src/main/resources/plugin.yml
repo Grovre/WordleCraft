@@ -5,3 +5,7 @@ api-version: 1.18
 authors: [ PoptartFromPluto ]
 description: Play Wordle in Minecraft
 website: https://github.com/grovre
+commands:
+  wordle:
+    description: The foundation to all wordle commands
+    usage: /<command>

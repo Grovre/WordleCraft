@@ -2,6 +2,7 @@ package me.grovre.wordlecraft.wordle;
 
 import com.google.common.io.Files;
 import me.grovre.wordlecraft.WordleCraft;
+import org.bukkit.entity.Player;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -10,15 +11,17 @@ import java.util.Random;
 
 public class WordleAPI {
 
+    public static ArrayList<WordleGameInstance> wordleGameInstances;
+
     public static ArrayList<String> getAllWords() {
         // File ops
         File f = new File(WordleCraft.getPlugin().getDataFolder().getAbsolutePath() + File.separator + "words.txt");
         if(!f.getParentFile().exists()) if(!f.mkdir()) System.out.println("Failed to create directory: " + f.getParentFile().getAbsolutePath());
         if(!f.exists()) WordleCraft.getPlugin().saveResource("src/main/resources/words.txt", false);
 
-        // Reads file and saves all lines/words to array
+        // Reads file and saves all lines/words to ArrayList<String>
         try {
-            return (ArrayList<String>) Files.readLines(f, Charset.defaultCharset());
+            return (ArrayList<String>) Files.readLines(f, Charset.defaultCharset()); // Thanks, Google
         } catch (IOException e) {
             System.out.println("Failed to read lines from file: " + f.getAbsolutePath());
             e.printStackTrace();
@@ -27,9 +30,15 @@ public class WordleAPI {
     }
 
     public static String getRandomWord() {
+        // TODO Make random word fetching not use getAllWords() to make it faster
+        // Gets all words and returns a random one
         ArrayList<String> allWords = getAllWords();
         assert allWords != null;
         return allWords.get(new Random().nextInt(allWords.size()-1));
+    }
+
+    public static void startWordleGame(Player player) {
+        new WordleGameInstance(player);
     }
 
     public static String getSessionWord() {
