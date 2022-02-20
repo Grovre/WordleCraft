@@ -29,13 +29,16 @@ public class WordleGameInstance {
     public void setPlayerInstance(Player player, boolean isPlaying) {
         PersistentDataContainer pdc = player.getPersistentDataContainer();
 
+        // If false, removes this from WordleAPI's static list of game instances
         if(!isPlaying) {
             System.out.println("Is no longer playing Wordle!");
             pdc.set(Keys.hasInstanceKey, PersistentDataType.INTEGER, -1);
             WordleAPI.wordleGameInstances.remove(this);
         }
+
+        // If the WordleAPI static list of game instances doesn't contain this already, add this
         if(!WordleAPI.wordleGameInstances.contains(this)) WordleAPI.wordleGameInstances.add(this);
-        // Value is 1 if playing, 0 if not
+        // Value is >0 if playing, 0 if not
         int gameIndex = WordleAPI.wordleGameInstances.indexOf(this);
         pdc.set(Keys.hasInstanceKey, PersistentDataType.INTEGER, gameIndex);
     }
