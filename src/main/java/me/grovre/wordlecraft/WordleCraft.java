@@ -2,6 +2,7 @@ package me.grovre.wordlecraft;
 
 import me.grovre.wordlecraft.commands.CommandUtil;
 import me.grovre.wordlecraft.wordle.WordleAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -29,6 +30,8 @@ public final class WordleCraft extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        // Removes all online players from any active game instances
+        Bukkit.getOnlinePlayers().forEach(WordleAPI::removeFromGameInstances);
     }
 
     public static WordleCraft getPlugin() {
