@@ -14,6 +14,7 @@ public class WordleGuess {
 
     public WordleGuess(Player player, WordleGameInstance gameInstance, String guess) {
         guess = guess.toUpperCase();
+        this.rawGuess = guess;
         ArrayList<Character> wordChars = new ArrayList<>(5);
         ArrayList<Character> guessChars = new ArrayList<>(5);
         for(char c : gameInstance.getWord().toCharArray()) wordChars.add(c);
@@ -29,8 +30,9 @@ public class WordleGuess {
                 formattedGuess.append(ChatColor.GRAY).append(guessChars.get(i));
             }
         }
+        this.formattedGuess = formattedGuess.toString();
 
-        player.sendMessage(formattedGuess.toString() + ChatColor.AQUA + "\n---------");
+        player.sendMessage(this.formattedGuess + ChatColor.AQUA + "\n---------");
     }
 
     public void promptGuess(Player player, WordleGameInstance gameInstance) {

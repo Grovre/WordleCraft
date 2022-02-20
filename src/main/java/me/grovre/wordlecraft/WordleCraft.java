@@ -1,6 +1,8 @@
 package me.grovre.wordlecraft;
 
 import me.grovre.wordlecraft.commands.CommandUtil;
+import me.grovre.wordlecraft.listeners.ChatInterception;
+import me.grovre.wordlecraft.listeners.OnPlayerLeave;
 import me.grovre.wordlecraft.wordle.WordleAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -26,6 +28,9 @@ public final class WordleCraft extends JavaPlugin {
         sessionWord = WordleAPI.getRandomWord();
 
         Objects.requireNonNull(getServer().getPluginCommand("wordle")).setExecutor(new CommandUtil());
+
+        getServer().getPluginManager().registerEvents(new ChatInterception(), this);
+        getServer().getPluginManager().registerEvents(new OnPlayerLeave(), this);
     }
 
     @Override
