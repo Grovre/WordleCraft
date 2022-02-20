@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 public class WordleAPI {
@@ -64,12 +65,7 @@ public class WordleAPI {
     }
 
     public static WordleGameInstance getPlayerGameInstance(Player player) {
-        PersistentDataContainer pdc = player.getPersistentDataContainer();
-        if(!pdc.has(Keys.hasInstanceKey, PersistentDataType.INTEGER)) {
-            System.out.println("The player has never played Wordle before!");
-            return null;
-        }
-        Integer gameIndex = pdc.get(Keys.hasInstanceKey, PersistentDataType.INTEGER);
+        Integer gameIndex = getIndexOfGameInstance(player);
         if(gameIndex == null) return null;
         return wordleGameInstances.get(gameIndex);
     }
@@ -78,7 +74,30 @@ public class WordleAPI {
         return wordleGameInstances;
     }
 
-    public static boolean hasActiveGameInstance(Player player) {
+    public static void removeFromGameInstances(Player player) {
+        try {
+            Objects.requireNonNull(getPlayerGameInstance(player)).setPlayerInstance(player, false);
+        } catch (NullPointerException ignored) {
+        }
+    }
+
+    public static Integer getIndexOfGameInstance(Player player) {
+        return player.getPersistentDataContainer().get(Keys.hasInstanceKey, PersistentDataType.INTEGER);
+    }
+
+    public static Integer getIndexOfGameInstance(WordleGameInstance gameInstance) {
+        return gameInstance.getPlayer().getPersistentDataContainer().get(Keys.hasInstanceKey, PersistentDataType.INTEGER);
+    }
+
+    public static boolean gameInstancesContains(Player player) {
+        return getWordleGameInstances().contains(getPlayerGameInstance(player));
+    }
+
+    public static boolean gameInstancesContains(WordleGameInstance gameInstance) {
+        return getWordleGameInstances().contains(gameInstance);
+    }
+
+    public static boolean serverHasAnyActiveGameInstances() {
         return wordleGameInstances.size() > 0;
     }
 }
