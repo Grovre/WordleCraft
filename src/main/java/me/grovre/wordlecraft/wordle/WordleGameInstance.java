@@ -18,7 +18,6 @@ public class WordleGameInstance {
         guesses = new ArrayList<>(5);
         // TODO Word will only be session word if not solved yet
         word = WordleAPI.getSessionWord();
-        WordleAPI.wordleGameInstances.add(this);
         new WordleStart().startGame(player, this);
 
         // TODO continue the game in steps with chat interception and classes
