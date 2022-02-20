@@ -4,7 +4,8 @@ import com.google.common.io.Files;
 import me.grovre.wordlecraft.WordleCraft;
 import org.bukkit.entity.Player;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Random;

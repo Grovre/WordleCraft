@@ -1,10 +1,7 @@
 package me.grovre.wordlecraft.wordle;
 
 import me.grovre.wordlecraft.Keys;
-import me.grovre.wordlecraft.WordleCraft;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 

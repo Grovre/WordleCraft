@@ -4,9 +4,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class Permissions {
 
     // TODO make a static hashmap of all the commands, using the permission name to make adding permissions easier, ex: <String permName, Permission>
