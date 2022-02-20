@@ -22,6 +22,7 @@ public final class WordleCraft extends JavaPlugin {
         plugin = this;
         Permissions.loadPermissions();
         Keys.loadKeys();
+        createWordFile();
         sessionWord = WordleAPI.getRandomWord();
 
         Objects.requireNonNull(getServer().getPluginCommand("wordle")).setExecutor(new CommandUtil());
@@ -36,5 +37,9 @@ public final class WordleCraft extends JavaPlugin {
 
     public static WordleCraft getPlugin() {
         return plugin;
+    }
+
+    public static void createWordFile() {
+        plugin.saveResource("words.txt", true);
     }
 }

@@ -23,7 +23,10 @@ public class WordleGameInstance {
 
         // TODO continue the game in steps with chat interception and classes
 
-        new WordleEnd().endGame(player, this);
+    }
+
+    public void endGameInstance() {
+        new WordleEnd().endGame(getPlayer(), this);
     }
 
     public void setPlayerInstance(Player player, boolean isPlaying) {

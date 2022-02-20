@@ -22,7 +22,7 @@ public class WordleAPI {
         // File ops
         File f = new File(WordleCraft.getPlugin().getDataFolder().getAbsolutePath() + File.separator + "words.txt");
         if(!f.getParentFile().exists()) if(!f.mkdir()) System.out.println("Failed to create directory: " + f.getParentFile().getAbsolutePath());
-        if(!f.exists()) WordleCraft.getPlugin().saveResource("src/main/resources/words.txt", false);
+        if(!f.exists()) WordleCraft.createWordFile();
 
         // Reads file and saves all lines/words to ArrayList<String>
         try {
