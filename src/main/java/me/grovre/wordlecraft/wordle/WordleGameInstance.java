@@ -14,6 +14,7 @@ public class WordleGameInstance {
     private ArrayList<String> guesses;
 
     public WordleGameInstance(Player player) {
+        System.out.println("New WordleGameInstance");
         this.player = player;
         guesses = new ArrayList<>(5);
         // TODO Word will only be session word if not solved yet
