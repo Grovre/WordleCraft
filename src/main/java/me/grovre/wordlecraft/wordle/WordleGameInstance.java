@@ -17,7 +17,7 @@ public class WordleGameInstance {
     public WordleGameInstance(Player player) {
         System.out.println("New WordleGameInstance");
         this.player = player;
-        guesses = new ArrayList<>(5);
+        guesses = new ArrayList<>(6);
         // TODO Word will only be session word if not solved yet
         word = WordleAPI.getSessionWord().toUpperCase();
         System.out.println(player.getName() + " has the word " + word);
