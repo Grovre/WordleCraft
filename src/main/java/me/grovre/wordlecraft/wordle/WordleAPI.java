@@ -3,6 +3,7 @@ package me.grovre.wordlecraft.wordle;
 import com.google.common.io.Files;
 import me.grovre.wordlecraft.Keys;
 import me.grovre.wordlecraft.WordleCraft;
+import org.apache.commons.lang.ObjectUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -65,9 +66,11 @@ public class WordleAPI {
     }
 
     public static WordleGameInstance getPlayerGameInstance(Player player) {
-        Integer gameIndex = getIndexOfGameInstance(player);
-        if(gameIndex == null) return null;
-        return wordleGameInstances.get(gameIndex);
+        try {
+            return wordleGameInstances.get(getIndexOfGameInstance(player));
+        } catch (IndexOutOfBoundsException ignored) {
+            return null;
+        }
     }
 
     public static ArrayList<WordleGameInstance> getWordleGameInstances() {

@@ -1,6 +1,7 @@
 package me.grovre.wordlecraft.commands;
 
 import me.grovre.wordlecraft.Permissions;
+import me.grovre.wordlecraft.wordle.WordleAPI;
 import me.grovre.wordlecraft.wordle.WordleGameInstance;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -28,6 +29,10 @@ public class CommandUtil implements CommandExecutor {
                 return true;
             } else if(!player.hasPermission(Permissions.startWordle)) {
                 Permissions.sendNoPermissionsMessage(player);
+                return true;
+            } else if(WordleAPI.getPlayerGameInstance(player) != null) {
+                player.sendMessage(ChatColor.RED + "You are already have an instance of Wordle running!");
+                System.out.println(player.getName() + " is already playing Wordle!");
                 return true;
             } else {
                 new WordleGameInstance(player);

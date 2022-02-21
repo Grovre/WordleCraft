@@ -3,14 +3,12 @@ package me.grovre.wordlecraft.wordle;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class WordleGuess {
 
-    private String formattedGuess;
-    private String rawGuess;
+    private final String formattedGuess;
+    private final String rawGuess;
 
     public WordleGuess(Player player, WordleGameInstance gameInstance, String guess) {
         guess = guess.toUpperCase();
@@ -32,12 +30,17 @@ public class WordleGuess {
         }
         this.formattedGuess = formattedGuess.toString();
 
-        player.sendMessage(this.formattedGuess + ChatColor.AQUA + "\n---------");
+        player.sendMessage(this.formattedGuess + ChatColor.AQUA + "\n-----");
     }
 
     public void promptGuess(Player player, WordleGameInstance gameInstance) {
         int guessNumber = gameInstance.getGuesses().size();
-        player.sendMessage(ChatColor.AQUA + "Enter guess #" + guessNumber + ": ");
+        player.sendMessage(ChatColor.AQUA + "Enter guess #" + (guessNumber + 1) + ": ");
+    }
+
+    public void success(Player player, WordleGameInstance gameInstance) {
+        player.sendMessage(ChatColor.AQUA + "You are correct!");
+        gameInstance.setPlayerInstance(player, false);
     }
 
     public String getFormattedGuess() {
@@ -46,5 +49,9 @@ public class WordleGuess {
 
     public String getRawGuess() {
         return rawGuess;
+    }
+
+    public boolean checkWithAnswer(WordleGameInstance gameInstance) {
+        return rawGuess.equalsIgnoreCase(gameInstance.getWord());
     }
 }

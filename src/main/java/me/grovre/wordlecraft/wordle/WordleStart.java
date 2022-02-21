@@ -12,6 +12,6 @@ public class WordleStart {
     public void startGame(Player player, WordleGameInstance gameInstance) {
         System.out.println("startGame");
         gameInstance.setPlayerInstance(player, true);
-        System.out.println("Index of game instance: " + WordleAPI.getPlayerGameInstance(player));
+        System.out.println("Index of game instance: " + WordleAPI.getIndexOfGameInstance(player));
     }
 }

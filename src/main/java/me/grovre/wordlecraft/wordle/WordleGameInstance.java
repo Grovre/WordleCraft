@@ -19,10 +19,8 @@ public class WordleGameInstance {
         guesses = new ArrayList<>(5);
         // TODO Word will only be session word if not solved yet
         word = WordleAPI.getSessionWord().toUpperCase();
+        System.out.println(player.getName() + " has the word " + word);
         new WordleStart().startGame(player, this);
-
-        // TODO continue the game in steps with chat interception and classes
-
     }
 
     public void endGameInstance() {
@@ -31,12 +29,12 @@ public class WordleGameInstance {
 
     public void setPlayerInstance(Player player, boolean isPlaying) {
         PersistentDataContainer pdc = player.getPersistentDataContainer();
-
         // If false, removes this from WordleAPI's static list of game instances
         if(!isPlaying) {
-            System.out.println("Is no longer playing Wordle!");
+            System.out.println("No longer playing Wordle!");
             pdc.set(Keys.hasInstanceKey, PersistentDataType.INTEGER, -1);
             WordleAPI.wordleGameInstances.remove(this);
+            return;
         }
 
         // If the WordleAPI static list of game instances doesn't contain this already, add this
@@ -59,13 +57,18 @@ public class WordleGameInstance {
     }
 
     public void makeGuess(String guessMade) {
+        System.out.println("Player making guess");
         WordleGuess guess = new WordleGuess(getPlayer(), this, guessMade);
         guesses.add(guess);
-        if(guess.getRawGuess().equals(getWord())) {
+        System.out.println("Current guess amount: " + guesses.size());
+        boolean isRight = guess.checkWithAnswer(this);
+        if(isRight) {
+            System.out.println("Player guessed right");
             // TODO Make a congratulations for guessing right
-            new WordleEnd();
+            new WordleEnd().endGame(player, this);
         } else if(guesses.size() >= 6) {
-            new WordleEnd();
+            System.out.println("Over guess limit");
+            new WordleEnd().endGame(player, this);
         }
     }
 

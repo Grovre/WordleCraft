@@ -26,6 +26,7 @@ public final class WordleCraft extends JavaPlugin {
         Keys.loadKeys();
         createWordFile();
         sessionWord = WordleAPI.getRandomWord();
+        WordleAPI.wordleGameInstances.clear();
 
         Objects.requireNonNull(getServer().getPluginCommand("wordle")).setExecutor(new CommandUtil());
 
