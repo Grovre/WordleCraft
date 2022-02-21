@@ -65,7 +65,6 @@ public class WordleGameInstance {
         boolean isRight = guess.checkWithAnswer(this);
         if(isRight) {
             System.out.println("Player guessed right");
-            // TODO Make a congratulations for guessing right
             new WordleEnd().endGame(player, this);
             player.sendMessage(ChatColor.AQUA + "You guessed the word correctly!: " + ChatColor.DARK_GREEN + word);
         } else if(guesses.size() >= 6) {

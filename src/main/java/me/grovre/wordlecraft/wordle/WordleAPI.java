@@ -34,7 +34,6 @@ public class WordleAPI {
     }
 
     public static String getRandomWord() {
-        // TODO Make random word fetching not use getAllWords() to make it faster
         // Gets all words and returns a random one
         ArrayList<String> allWords = getAllWords();
         assert allWords != null;

@@ -66,6 +66,7 @@ public class CommandUtil implements CommandExecutor {
             }
         }
 
+        // TODO make it so "random" can be used as an arg to set wordle to new RANDOM word instead of what you pass as param
         if(args[0].equalsIgnoreCase("set")) {
             if (player != null) {
                 if (!player.hasPermission(Permissions.setWordle)) {

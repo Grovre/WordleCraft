@@ -27,9 +27,5 @@ public class ChatInterception implements Listener {
         event.setCancelled(true);
 
         gameInstance.makeGuess(guess);
-
-        // TODO Complete chat interception when the player has an active game instance
-
     }
-
 }
