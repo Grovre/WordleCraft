@@ -59,7 +59,7 @@ public class WordleGameInstance {
 
     public void makeGuess(String guessMade) {
         System.out.println("Player making guess");
-        WordleGuess guess = new WordleGuess(getPlayer(), this, guessMade);
+        WordleGuess guess = new WordleGuess(this, guessMade);
         guesses.add(guess);
         System.out.println("Current guess amount: " + guesses.size());
         boolean isRight = guess.checkWithAnswer(this);

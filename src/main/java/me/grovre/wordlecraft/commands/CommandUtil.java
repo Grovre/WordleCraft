@@ -108,22 +108,26 @@ public class CommandUtil implements CommandExecutor {
                     player.sendMessage(ChatColor.RED + "Player " + args[1] + " is not online right now.");
                     return true;
                 }
-            } else if(player != null) {
-                System.out.println("You must be a player to use '/wordle data' without any player name passed as your 2nd argument!");
+            } else if(player == null) {
+                System.out.println("You must be a player to use '/wordle data'");
                 return true;
             }
 
             assert dataPlayer != null;
             int wins = WordleAPI.getWinCount(dataPlayer);
             int losses = WordleAPI.getLossCount(dataPlayer);
-            int total = WordleAPI.getTotalGames(dataPlayer);
+            int totalGames = WordleAPI.getTotalGames(dataPlayer);
+            int guesses = WordleAPI.getGuessCount(dataPlayer);
             double winRate = WordleAPI.getWinRatePercentage(dataPlayer);
+            double averageGuessesPerMatch = (double) guesses / totalGames;
             player.sendMessage(ChatColor.AQUA + "You have: ");
             player.sendMessage(ChatColor.AQUA + "Wins: " + ChatColor.DARK_GREEN + wins);
             player.sendMessage(ChatColor.AQUA + "Losses: " + ChatColor.RED + losses);
-            player.sendMessage(ChatColor.AQUA + "Total games: " + ChatColor.DARK_AQUA + total);
-            ChatColor winRateColor = winRate >= 50 ? ChatColor.DARK_GREEN : ChatColor.RED;
-            player.sendMessage(ChatColor.AQUA + "Win rate: " + winRateColor + "%" + winRate);
+            player.sendMessage(ChatColor.AQUA + "Total games: " + ChatColor.DARK_AQUA + totalGames);
+            player.sendMessage(ChatColor.AQUA + "Total guesses: " + ChatColor.DARK_AQUA + guesses);
+            player.sendMessage(ChatColor.AQUA + "Average guesses per game: " + ChatColor.DARK_AQUA + averageGuessesPerMatch);
+            ChatColor rateColor = winRate >= 50 ? ChatColor.DARK_GREEN : ChatColor.RED;
+            player.sendMessage(ChatColor.AQUA + "Win rate: " + rateColor + winRate + "%");
             return true;
         }
 

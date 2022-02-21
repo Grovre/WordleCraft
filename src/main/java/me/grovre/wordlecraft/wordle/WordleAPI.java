@@ -128,4 +128,14 @@ public class WordleAPI {
         int currentLosses = getLossCount(player);
         player.getPersistentDataContainer().set(Keys.lostCountKey, PersistentDataType.INTEGER, currentLosses + n);
     }
+
+    public static int getGuessCount(Player player) {
+        Integer guessCount = player.getPersistentDataContainer().get(Keys.guessCountKey, PersistentDataType.INTEGER);
+        return guessCount == null ? 0 : guessCount;
+    }
+
+    public static void addToGuessCount(Player player, int n) {
+        int currentGuesses = getGuessCount(player);
+        player.getPersistentDataContainer().set(Keys.guessCountKey, PersistentDataType.INTEGER, currentGuesses + n);
+    }
 }

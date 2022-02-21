@@ -10,7 +10,9 @@ public class WordleGuess {
     private final String formattedGuess;
     private final String rawGuess;
 
-    public WordleGuess(Player player, WordleGameInstance gameInstance, String guess) {
+    public WordleGuess(WordleGameInstance gameInstance, String guess) {
+        Player player = gameInstance.getPlayer();
+        WordleAPI.addToGuessCount(player, 1);
         guess = guess.toUpperCase();
         this.rawGuess = guess;
         ArrayList<Character> wordChars = new ArrayList<>(5);
