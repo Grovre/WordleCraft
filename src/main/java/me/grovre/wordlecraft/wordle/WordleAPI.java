@@ -20,7 +20,8 @@ public class WordleAPI {
     public static ArrayList<String> getAllWords() {
         // File ops
         File f = new File(WordleCraft.getPlugin().getDataFolder().getAbsolutePath() + File.separator + "words.txt");
-        if(!f.getParentFile().exists()) if(!f.mkdir()) System.out.println("Failed to create directory: " + f.getParentFile().getAbsolutePath());
+        if(!f.getParentFile().exists()) if(!f.mkdir()) System.out.println("Failed to create directory: "
+                + f.getParentFile().getAbsolutePath());
         if(!f.exists()) WordleCraft.createWordFile();
 
         // Reads file and saves all lines/words to ArrayList<String>
@@ -65,7 +66,7 @@ public class WordleAPI {
     public static WordleGameInstance getPlayerGameInstance(Player player) {
         try {
             return wordleGameInstances.get(getIndexOfGameInstance(player));
-        } catch (IndexOutOfBoundsException ignored) {
+        } catch (IndexOutOfBoundsException e) {
             return null;
         }
     }
@@ -77,8 +78,7 @@ public class WordleAPI {
     public static void removeFromGameInstances(Player player) {
         try {
             Objects.requireNonNull(getPlayerGameInstance(player)).setPlayerInstance(false);
-        } catch (NullPointerException ignored) {
-        }
+        } catch (NullPointerException ignored) {}
     }
 
     public static Integer getIndexOfGameInstance(Player player) {

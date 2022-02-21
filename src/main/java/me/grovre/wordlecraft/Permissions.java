@@ -6,7 +6,6 @@ import org.bukkit.permissions.Permission;
 
 public class Permissions {
 
-    // TODO make a static hashmap of all the commands, using the permission name to make adding permissions easier, ex: <String permName, Permission>
     public static Permission startWordle;
     public static Permission setWordle;
 
