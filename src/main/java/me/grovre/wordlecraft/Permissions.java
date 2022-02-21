@@ -8,15 +8,13 @@ public class Permissions {
 
     // TODO make a static hashmap of all the commands, using the permission name to make adding permissions easier, ex: <String permName, Permission>
     public static Permission startWordle;
-
-    public Permissions() {
-        loadPermissions();
-        System.out.println("Wordle permissions created and loaded");
-    }
+    public static Permission setWordle;
 
     public static void loadPermissions() {
         startWordle = new Permission("wordlecraft.startWordle",
                 "Allows users to use /wordle start");
+        setWordle = new Permission("wordlecraft.setWordle",
+                "Allows anybody with this permission to change the session word");
     }
 
     public static void sendNoPermissionsMessage(Player player) {

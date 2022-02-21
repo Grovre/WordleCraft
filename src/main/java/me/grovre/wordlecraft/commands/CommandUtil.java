@@ -66,6 +66,29 @@ public class CommandUtil implements CommandExecutor {
             }
         }
 
+        if(args[0].equalsIgnoreCase("set")) {
+            if (player != null) {
+                if (!player.hasPermission(Permissions.setWordle)) {
+                    player.sendMessage(ChatColor.RED + "You don't have permission to set the session word.");
+                }
+            }
+            if (args.length < 2) {
+                if (player != null) {
+                    player.sendMessage(ChatColor.RED + "You need a second argument, the word!");
+                }
+                System.out.println("Need a second argument.");
+                return true;
+            }
+            if (args[1].length() != 5) {
+                System.out.println(ChatColor.RED + "Your word must be 5 characters long!");
+                return false;
+            }
+            WordleAPI.setSessionWord(args[1]);
+            if (player != null) {
+                player.sendMessage(ChatColor.AQUA + "Successfully set word to: " + ChatColor.DARK_GREEN + args[1].toUpperCase());
+            }
+        }
+
         // TODO Add more commands
 
         return true;
