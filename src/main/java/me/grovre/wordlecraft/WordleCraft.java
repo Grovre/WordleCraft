@@ -24,7 +24,12 @@ public final class WordleCraft extends JavaPlugin {
         plugin = this;
         Permissions.loadPermissions();
         Keys.loadKeys();
-        createWordFile();
+        {
+            long start = System.currentTimeMillis();
+            createWordFile();
+            long end = System.currentTimeMillis();
+            System.out.println("It took " + (end - start)/1000.0 + " seconds (" + (end-start) + "ms) to create words.txt");
+        }
         sessionWord = WordleAPI.getRandomWord();
         WordleAPI.wordleGameInstances.clear();
 

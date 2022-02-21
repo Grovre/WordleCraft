@@ -40,7 +40,7 @@ public class WordleGuess {
 
     public void success(Player player, WordleGameInstance gameInstance) {
         player.sendMessage(ChatColor.AQUA + "You are correct!");
-        gameInstance.setPlayerInstance(player, false);
+        gameInstance.setPlayerInstance(false);
     }
 
     public String getFormattedGuess() {

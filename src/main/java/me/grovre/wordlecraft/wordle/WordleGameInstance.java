@@ -1,6 +1,7 @@
 package me.grovre.wordlecraft.wordle;
 
 import me.grovre.wordlecraft.Keys;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
@@ -27,7 +28,7 @@ public class WordleGameInstance {
         new WordleEnd().endGame(getPlayer(), this);
     }
 
-    public void setPlayerInstance(Player player, boolean isPlaying) {
+    public void setPlayerInstance(boolean isPlaying) {
         PersistentDataContainer pdc = player.getPersistentDataContainer();
         // If false, removes this from WordleAPI's static list of game instances
         if(!isPlaying) {
@@ -66,9 +67,13 @@ public class WordleGameInstance {
             System.out.println("Player guessed right");
             // TODO Make a congratulations for guessing right
             new WordleEnd().endGame(player, this);
+            player.sendMessage(ChatColor.AQUA + "You guessed the word correctly!: " + ChatColor.DARK_GREEN + word);
         } else if(guesses.size() >= 6) {
             System.out.println("Over guess limit");
             new WordleEnd().endGame(player, this);
+            player.sendMessage(ChatColor.AQUA + "You have run out of guesses! Your word was " + ChatColor.RED + word);
+        } else {
+            guess.promptGuess(player, this);
         }
     }
 

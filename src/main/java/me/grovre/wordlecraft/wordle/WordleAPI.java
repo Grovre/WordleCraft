@@ -3,9 +3,7 @@ package me.grovre.wordlecraft.wordle;
 import com.google.common.io.Files;
 import me.grovre.wordlecraft.Keys;
 import me.grovre.wordlecraft.WordleCraft;
-import org.apache.commons.lang.ObjectUtils;
 import org.bukkit.entity.Player;
-import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.io.File;
@@ -79,7 +77,7 @@ public class WordleAPI {
 
     public static void removeFromGameInstances(Player player) {
         try {
-            Objects.requireNonNull(getPlayerGameInstance(player)).setPlayerInstance(player, false);
+            Objects.requireNonNull(getPlayerGameInstance(player)).setPlayerInstance(false);
         } catch (NullPointerException ignored) {
         }
     }

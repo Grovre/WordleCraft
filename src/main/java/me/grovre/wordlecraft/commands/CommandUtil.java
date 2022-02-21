@@ -22,6 +22,13 @@ public class CommandUtil implements CommandExecutor {
         Player player = sender instanceof Player ? (Player) sender : null;
         updateLatest(player, sender, command, args);
 
+        // Will throw indexOutOfBoundsException with everything trying to check the first argument. /wordle is not a command itself
+        // so until then, just make it do '/wordle help'
+        // TODO Possible command for just 'wordle'?
+        if(args.length == 0) {
+            args = new String[]{"help"};
+        }
+
         // TODO arg tab completion
         if(args[0].equalsIgnoreCase("start")) {
             if(player == null) {
@@ -36,6 +43,7 @@ public class CommandUtil implements CommandExecutor {
                 return true;
             } else {
                 new WordleGameInstance(player);
+                return true;
             }
         }
 
@@ -46,6 +54,15 @@ public class CommandUtil implements CommandExecutor {
                         "Once you complete the session word that resets everytime the server restarts, " +
                         "you'll begin to receive random words. Any messages that are 5 characters long " +
                         "are intercepted and played into the game.");
+            }
+            return true;
+        }
+
+        if(args[0].equalsIgnoreCase("stop") && player != null) {
+            WordleGameInstance gameInstance = WordleAPI.getPlayerGameInstance(player);
+            if(gameInstance != null) {
+                player.sendMessage(ChatColor.AQUA + "You have chosen to stop playing Wordle! Better luck next time!");
+                gameInstance.setPlayerInstance(false);
             }
         }
 
