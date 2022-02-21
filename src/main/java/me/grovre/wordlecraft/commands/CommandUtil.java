@@ -3,11 +3,15 @@ package me.grovre.wordlecraft.commands;
 import me.grovre.wordlecraft.Permissions;
 import me.grovre.wordlecraft.wordle.WordleAPI;
 import me.grovre.wordlecraft.wordle.WordleGameInstance;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class CommandUtil implements CommandExecutor {
 
@@ -91,15 +95,29 @@ public class CommandUtil implements CommandExecutor {
         }
 
         if(args[0].equalsIgnoreCase("data")) {
-            if(player != null) {
-                System.out.println("You must be a player to use '/wordle data' without any player names as your 2nd argument!");
+            Player dataPlayer = player;
+            if(args.length == 2 && player != null) {
+                ArrayList<String> onlinePlayerNames = (ArrayList<String>) Bukkit.getOnlinePlayers().stream()
+                        .map(Player::getName)
+                        .map(String::toLowerCase)
+                        .collect(Collectors.toList());
+                String argumentName = args[1].toLowerCase();
+                if(onlinePlayerNames.contains(argumentName)) {
+                    dataPlayer = Bukkit.getPlayer(argumentName);
+                } else {
+                    player.sendMessage(ChatColor.RED + "Player " + args[1] + " is not online right now.");
+                    return true;
+                }
+            } else if(player != null) {
+                System.out.println("You must be a player to use '/wordle data' without any player name passed as your 2nd argument!");
                 return true;
             }
 
-            int wins = WordleAPI.getWinCount(player);
-            int losses = WordleAPI.getLossCount(player);
-            int total = WordleAPI.getTotalGames(player);
-            double winRate = WordleAPI.getWinRatePercentage(player);
+            assert dataPlayer != null;
+            int wins = WordleAPI.getWinCount(dataPlayer);
+            int losses = WordleAPI.getLossCount(dataPlayer);
+            int total = WordleAPI.getTotalGames(dataPlayer);
+            double winRate = WordleAPI.getWinRatePercentage(dataPlayer);
             player.sendMessage(ChatColor.AQUA + "You have: ");
             player.sendMessage(ChatColor.AQUA + "Wins: " + ChatColor.DARK_GREEN + wins);
             player.sendMessage(ChatColor.AQUA + "Losses: " + ChatColor.RED + losses);
