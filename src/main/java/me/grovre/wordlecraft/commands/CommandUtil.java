@@ -90,6 +90,25 @@ public class CommandUtil implements CommandExecutor {
             }
         }
 
+        if(args[0].equalsIgnoreCase("data")) {
+            if(player != null) {
+                System.out.println("You must be a player to use '/wordle data' without any player names as your 2nd argument!");
+                return true;
+            }
+
+            int wins = WordleAPI.getWinCount(player);
+            int losses = WordleAPI.getLossCount(player);
+            int total = WordleAPI.getTotalGames(player);
+            double winRate = WordleAPI.getWinRatePercentage(player);
+            player.sendMessage(ChatColor.AQUA + "You have: ");
+            player.sendMessage(ChatColor.AQUA + "Wins: " + ChatColor.DARK_GREEN + wins);
+            player.sendMessage(ChatColor.AQUA + "Losses: " + ChatColor.RED + losses);
+            player.sendMessage(ChatColor.AQUA + "Total games: " + ChatColor.DARK_AQUA + total);
+            ChatColor winRateColor = winRate >= 50 ? ChatColor.DARK_GREEN : ChatColor.RED;
+            player.sendMessage(ChatColor.AQUA + "Win rate: " + winRateColor + "%" + winRate);
+            return true;
+        }
+
         // TODO Add more commands
 
         return true;
