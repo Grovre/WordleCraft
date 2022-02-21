@@ -118,4 +118,14 @@ public class WordleAPI {
     public static double getWinRatePercentage(Player player) {
         return ((double) getWinCount(player) / getTotalGames(player)) * 100;
     }
+
+    public static void addToWinCount(Player player, int n) {
+        int currentWins = getWinCount(player);
+        player.getPersistentDataContainer().set(Keys.winCountKey, PersistentDataType.INTEGER, currentWins + n);
+    }
+
+    public static void addToLossCount(Player player, int n) {
+        int currentLosses = getLossCount(player);
+        player.getPersistentDataContainer().set(Keys.lostCountKey, PersistentDataType.INTEGER, currentLosses + n);
+    }
 }

@@ -5,7 +5,6 @@ import org.bukkit.NamespacedKey;
 public class Keys {
 
     public static NamespacedKey hasInstanceKey;
-    // TODO implement score keys
     public static NamespacedKey lostCountKey;
     public static NamespacedKey winCountKey;
 

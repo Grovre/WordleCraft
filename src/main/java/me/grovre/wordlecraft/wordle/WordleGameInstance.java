@@ -67,10 +67,12 @@ public class WordleGameInstance {
             System.out.println("Player guessed right");
             new WordleEnd().endGame(player, this);
             player.sendMessage(ChatColor.AQUA + "You guessed the word correctly!: " + ChatColor.DARK_GREEN + word);
+            WordleAPI.addToWinCount(player, 1);
         } else if(guesses.size() >= 6) {
             System.out.println("Over guess limit");
             new WordleEnd().endGame(player, this);
             player.sendMessage(ChatColor.AQUA + "You have run out of guesses! Your word was " + ChatColor.RED + word);
+            WordleAPI.addToLossCount(player, 1);
         } else {
             guess.promptGuess(player, this);
         }
