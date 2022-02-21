@@ -100,4 +100,22 @@ public class WordleAPI {
     public static boolean serverHasAnyActiveGameInstances() {
         return wordleGameInstances.size() > 0;
     }
+
+    public static int getWinCount(Player player) {
+        Integer wins = player.getPersistentDataContainer().get(Keys.winCountKey, PersistentDataType.INTEGER);
+        return wins == null ? 0 : wins;
+    }
+
+    public static int getLossCount(Player player) {
+        Integer lost = player.getPersistentDataContainer().get(Keys.lostCountKey, PersistentDataType.INTEGER);
+        return lost == null ? 0 : lost;
+    }
+
+    public static int getTotalGames(Player player) {
+        return getWinCount(player) + getLossCount(player);
+    }
+
+    public static double getWinRatePercentage(Player player) {
+        return ((double) getWinCount(player) / getTotalGames(player)) * 100;
+    }
 }
