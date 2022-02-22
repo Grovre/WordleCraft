@@ -96,7 +96,7 @@ public class CommandUtil implements CommandExecutor {
 
         if(args[0].equalsIgnoreCase("data")) {
             Player dataPlayer = player;
-            if(args.length == 2 && player != null) {
+            if(args.length == 2 && player != null && player.hasPermission(Permissions.wordleData)) {
                 ArrayList<String> onlinePlayerNames = (ArrayList<String>) Bukkit.getOnlinePlayers().stream()
                         .map(Player::getName)
                         .map(String::toLowerCase)

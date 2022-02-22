@@ -10,6 +10,6 @@ public class WordleStart {
         gameInstance.setPlayerInstance(true);
         System.out.println("Index of game instance: " + WordleAPI.getIndexOfGameInstance(player));
         player.sendMessage(ChatColor.AQUA + "You have started a game of " + ChatColor.YELLOW + "Wordle! "
-                + ChatColor.AQUA + "Any messages you send that are 5 characters long will be intercepted and at play!");
+                + ChatColor.AQUA + "Any messages you send that are 5 characters long will be intercepted and at play!\nEnter guess #1: ");
     }
 }

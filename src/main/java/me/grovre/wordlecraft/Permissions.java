@@ -8,12 +8,15 @@ public class Permissions {
 
     public static Permission startWordle;
     public static Permission setWordle;
+    public static Permission wordleData;
 
     public static void loadPermissions() {
         startWordle = new Permission("wordlecraft.startWordle",
                 "Allows users to use /wordle start");
         setWordle = new Permission("wordlecraft.setWordle",
                 "Allows anybody with this permission to change the session word");
+        wordleData = new Permission("wordlecraft.data",
+                "Allows you to view the data of other people's Wordle history");
     }
 
     public static void sendNoPermissionsMessage(Player player) {
