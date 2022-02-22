@@ -2,6 +2,7 @@ package me.grovre.wordlecraft.commands;
 
 import me.grovre.wordlecraft.Permissions;
 import me.grovre.wordlecraft.wordle.WordleAPI;
+import me.grovre.wordlecraft.wordle.WordleEnd;
 import me.grovre.wordlecraft.wordle.WordleGameInstance;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -65,8 +66,8 @@ public class CommandUtil implements CommandExecutor {
         if(args[0].equalsIgnoreCase("stop") && player != null) {
             WordleGameInstance gameInstance = WordleAPI.getPlayerGameInstance(player);
             if(gameInstance != null) {
+                new WordleEnd().endGame(player, gameInstance);
                 player.sendMessage(ChatColor.AQUA + "You have chosen to stop playing Wordle! Better luck next time!");
-                gameInstance.setPlayerInstance(false);
             }
         }
 

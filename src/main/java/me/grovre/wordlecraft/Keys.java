@@ -10,6 +10,7 @@ public class Keys {
     public static NamespacedKey lostCountKey;
     public static NamespacedKey winCountKey;
     public static NamespacedKey guessCountKey;
+    public static NamespacedKey sessionCompletedKey;
 
     public static void loadKeys() {
         WordleCraft p = WordleCraft.getPlugin();
@@ -17,5 +18,6 @@ public class Keys {
         lostCountKey = new NamespacedKey(p, "lostCount");
         winCountKey = new NamespacedKey(p, "winCount");
         guessCountKey = new NamespacedKey(p, "guessCount");
+        sessionCompletedKey = new NamespacedKey(p, "sessionCompleted");
     }
 }

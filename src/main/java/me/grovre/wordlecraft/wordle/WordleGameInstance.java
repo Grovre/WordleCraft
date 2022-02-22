@@ -19,9 +19,13 @@ public class WordleGameInstance {
         this.player = player;
         guesses = new ArrayList<>(6);
         // TODO Word will only be session word if not solved yet
-        word = WordleAPI.getSessionWord().toUpperCase();
+        word = WordleAPI.hasCompletedSessionWord(player) ? WordleAPI.getRandomWord() : WordleAPI.getSessionWord().toUpperCase();
+        System.out.println("startGame");
+        setPlayerInstance(true);
         System.out.println(player.getName() + " has the word " + word);
-        new WordleStart().startGame(player, this);
+        System.out.println("Index of game instance: " + WordleAPI.getIndexOfGameInstance(player));
+        player.sendMessage(ChatColor.AQUA + "You have started a game of " + ChatColor.YELLOW + "Wordle! "
+                + ChatColor.AQUA + "Any messages you send that are 5 characters long will be intercepted and at play!\nEnter guess #1: ");
     }
 
     public void endGameInstance() {

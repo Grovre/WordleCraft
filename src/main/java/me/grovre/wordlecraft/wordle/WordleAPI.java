@@ -138,4 +138,14 @@ public class WordleAPI {
         int currentGuesses = getGuessCount(player);
         player.getPersistentDataContainer().set(Keys.guessCountKey, PersistentDataType.INTEGER, currentGuesses + n);
     }
+
+    public static boolean hasCompletedSessionWord(Player player) {
+        Integer status = player.getPersistentDataContainer().get(Keys.sessionCompletedKey, PersistentDataType.INTEGER);
+        if(status == null) return false;
+        return status == 1;
+    }
+
+    public static void setSessionWordCompleted(Player player, boolean hasCompleted) {
+        player.getPersistentDataContainer().set(Keys.sessionCompletedKey, PersistentDataType.INTEGER, hasCompleted ? 1 : 0);
+    }
 }

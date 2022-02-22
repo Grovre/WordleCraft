@@ -12,6 +12,7 @@ public class OnPlayerLeave implements Listener {
     public void OnPlayerLeaveServer(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         WordleAPI.removeFromGameInstances(player);
+        WordleAPI.setSessionWordCompleted(player, false);
     }
 
 }
