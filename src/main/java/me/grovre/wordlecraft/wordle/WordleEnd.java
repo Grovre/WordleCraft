@@ -9,6 +9,7 @@ public class WordleEnd {
         System.out.println("endGame");
         gameInstance.setPlayerInstance(false);
         player.sendMessage(ChatColor.DARK_AQUA + "Your game has ended!");
+        WordleAPI.setSessionWordCompleted(player, true);
     }
 
     public void endGame(Player player, WordleGameInstance gameInstance, boolean hasWon) {
