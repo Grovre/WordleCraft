@@ -15,8 +15,8 @@ public class Permissions {
                 "Allows users to use /wordle start");
         setWordle = new Permission("wordlecraft.setWordle",
                 "Allows anybody with this permission to change the session word");
-        wordleData = new Permission("wordlecraft.data",
-                "Allows you to view the data of other people's Wordle history");
+        wordleData = new Permission("wordlecraft.stats",
+                "Allows you to view the stats of other people's Wordle games");
     }
 
     public static void sendNoPermissionsMessage(Player player) {

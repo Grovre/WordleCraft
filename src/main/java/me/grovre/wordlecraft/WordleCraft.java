@@ -12,6 +12,7 @@ import java.util.Objects;
 public final class WordleCraft extends JavaPlugin {
 
     // TODO Comment on everything!!!
+    // TODO Try to remove all warnings!!!
 
     public static WordleCraft plugin;
     public static String sessionWord;

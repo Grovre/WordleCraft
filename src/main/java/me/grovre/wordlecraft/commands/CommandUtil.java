@@ -139,6 +139,7 @@ public class CommandUtil implements CommandExecutor {
         }
 
         // TODO Add more commands
+        // TODO wordle share command
 
         return true;
     }

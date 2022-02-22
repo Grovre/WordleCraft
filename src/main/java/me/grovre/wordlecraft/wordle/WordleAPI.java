@@ -15,6 +15,9 @@ import java.util.Random;
 
 public class WordleAPI {
 
+    // TODO Hashmap to save players' most recent game
+    // Will mostly be used for '/wordle share'
+
     public static ArrayList<WordleGameInstance> wordleGameInstances = new ArrayList<>();
 
     public static ArrayList<String> getAllWords() {
