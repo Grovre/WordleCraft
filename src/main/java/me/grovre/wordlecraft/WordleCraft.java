@@ -11,6 +11,8 @@ import java.util.Objects;
 
 public final class WordleCraft extends JavaPlugin {
 
+    // TODO Comment on everything!!!
+
     public static WordleCraft plugin;
     public static String sessionWord;
 
