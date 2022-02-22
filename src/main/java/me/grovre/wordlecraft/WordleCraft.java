@@ -14,10 +14,6 @@ public final class WordleCraft extends JavaPlugin {
     public static WordleCraft plugin;
     public static String sessionWord;
 
-    /*
-    PDC key: hasInstance
-     */
-
     @Override
     public void onEnable() {
         // Plugin startup logic

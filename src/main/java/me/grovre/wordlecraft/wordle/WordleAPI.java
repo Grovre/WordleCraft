@@ -49,11 +49,12 @@ public class WordleAPI {
         return WordleCraft.sessionWord;
     }
 
-    public static void setSessionWord() {
+    public static void setRandomSessionWord() {
         WordleCraft.sessionWord = getRandomWord();
+        WordleCraft.sessionWord = WordleCraft.sessionWord.toUpperCase();
     }
 
-    public static boolean setSessionWord(String word) {
+    public static boolean setRandomSessionWord(String word) {
         if(word.length() == 5) {
             WordleCraft.sessionWord = word;
             return true;

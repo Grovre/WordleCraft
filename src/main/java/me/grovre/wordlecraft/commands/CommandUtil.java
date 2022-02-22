@@ -71,7 +71,6 @@ public class CommandUtil implements CommandExecutor {
             }
         }
 
-        // TODO make it so "random" can be used as an arg to set wordle to new RANDOM word instead of what you pass as param
         if(args[0].equalsIgnoreCase("set")) {
             if (player != null) {
                 if (!player.hasPermission(Permissions.setWordle)) {
@@ -85,11 +84,18 @@ public class CommandUtil implements CommandExecutor {
                 System.out.println("Need a second argument.");
                 return true;
             }
+            if(args[1].equalsIgnoreCase("random")) {
+                WordleAPI.setRandomSessionWord();
+                if(player != null) {
+                    player.sendMessage(ChatColor.AQUA + "Successfully set the session word to something random.");
+                }
+                System.out.println("Successfully set the session word to something random.");
+            }
             if (args[1].length() != 5) {
                 System.out.println(ChatColor.RED + "Your word must be 5 characters long!");
                 return false;
             }
-            WordleAPI.setSessionWord(args[1]);
+            WordleAPI.setRandomSessionWord(args[1]);
             if (player != null) {
                 player.sendMessage(ChatColor.AQUA + "Successfully set word to: " + ChatColor.DARK_GREEN + args[1].toUpperCase());
             }
