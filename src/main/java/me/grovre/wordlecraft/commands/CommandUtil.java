@@ -38,8 +38,6 @@ public class CommandUtil implements CommandExecutor {
         Player player = sender instanceof Player ? (Player) sender : null;
         updateLatest(player, sender, command, args);
 
-        // Will throw indexOutOfBoundsException with everything trying to check the first argument. /wordle is not a command itself
-        // so until then, just make it do '/wordle help'
         if(args.length == 0) {
             args = new String[]{"help"};
         }
@@ -135,8 +133,10 @@ public class CommandUtil implements CommandExecutor {
             int totalGames = WordleAPI.getTotalGames(dataPlayer);
             int guesses = WordleAPI.getGuessCount(dataPlayer);
             double winRate = WordleAPI.getWinRatePercentage(dataPlayer);
+            winRate = ((int) (winRate*100))/100D;
             double averageGuessesPerMatch = (double) guesses / totalGames;
-            player.sendMessage(ChatColor.AQUA + "You have: ");
+            averageGuessesPerMatch = ((int) (averageGuessesPerMatch*100))/100D;
+            player.sendMessage(ChatColor.AQUA + dataPlayer.getName() + " has: ");
             player.sendMessage(ChatColor.AQUA + "Wins: " + ChatColor.DARK_GREEN + wins);
             player.sendMessage(ChatColor.AQUA + "Losses: " + ChatColor.RED + losses);
             player.sendMessage(ChatColor.AQUA + "Total games: " + ChatColor.DARK_AQUA + totalGames);
