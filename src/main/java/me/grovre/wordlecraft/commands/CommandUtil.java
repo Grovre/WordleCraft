@@ -100,7 +100,7 @@ public class CommandUtil implements CommandExecutor {
             }
         }
 
-        if(args[0].equalsIgnoreCase("data")) {
+        if(args[0].equalsIgnoreCase("stats")) {
             Player dataPlayer = player;
             if(args.length == 2 && player != null && player.hasPermission(Permissions.wordleStats)) {
                 ArrayList<String> onlinePlayerNames = (ArrayList<String>) Bukkit.getOnlinePlayers().stream()
@@ -150,6 +150,7 @@ public class CommandUtil implements CommandExecutor {
                     + ChatColor.AQUA + player.getName() + " now has " + ChatColor.DARK_AQUA + ChatColor.BOLD + WordleAPI.getTotalGames(player) + ChatColor.RESET + ChatColor.AQUA + " total games of Wordle!\n"
                     + ChatColor.DARK_AQUA + "See more with '/wordle stats " + player.getName() + "'";
             for(Player p : Bukkit.getOnlinePlayers()) p.sendMessage(s);
+            WordleAPI.previousGameInstances.remove(player.getUniqueId());
         }
 
         // TODO Add more commands

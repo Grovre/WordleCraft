@@ -13,5 +13,4 @@ public class OnPlayerLeave implements Listener {
         Player player = event.getPlayer();
         WordleAPI.wordleGameInstances.remove(WordleAPI.getPlayerGameInstance(player));
     }
-
 }
