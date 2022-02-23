@@ -52,6 +52,10 @@ public class WordleGameInstance {
         }
     }
 
+    public boolean hasWon() {
+        return won;
+    }
+
     public Player getPlayer() {
         return player;
     }

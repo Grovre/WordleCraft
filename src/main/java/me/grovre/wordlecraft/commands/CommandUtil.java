@@ -137,8 +137,22 @@ public class CommandUtil implements CommandExecutor {
             return true;
         }
 
+        if(args[0].equalsIgnoreCase("share") && player != null) {
+            WordleGameInstance gi = WordleAPI.previousGameInstances.get(player.getUniqueId());
+            if(gi == null) {
+                player.sendMessage(ChatColor.DARK_AQUA + "You need to play a game of Wordle first! /wordle start");
+                return true;
+            }
+            player.sendMessage(ChatColor.AQUA + "Sharing your most recent game!");
+            String s = ChatColor.AQUA + player.getName() + " wants to share their most recent Wordle game!\n"
+                    + "They " + (gi.hasWon() ? ChatColor.DARK_GREEN : ChatColor.RED) + ChatColor.BOLD + (gi.hasWon() ? " WON" : " LOST") + "!\n" + ChatColor.RESET
+                    + ChatColor.AQUA + (gi.hasWon() ? "It took " + ChatColor.DARK_AQUA + ChatColor.BOLD + gi.getGuesses().size() + "/6" + ChatColor.RESET + ChatColor.AQUA + " guesses!\n" : "")
+                    + ChatColor.AQUA + player.getName() + " now has " + ChatColor.DARK_AQUA + ChatColor.BOLD + WordleAPI.getTotalGames(player) + ChatColor.RESET + ChatColor.AQUA + " total games of Wordle!\n"
+                    + ChatColor.DARK_AQUA + "See more with '/wordle stats " + player.getName() + "'";
+            for(Player p : Bukkit.getOnlinePlayers()) p.sendMessage(s);
+        }
+
         // TODO Add more commands
-        // TODO wordle share command
 
         return true;
     }
