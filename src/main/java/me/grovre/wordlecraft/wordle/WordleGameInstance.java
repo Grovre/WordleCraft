@@ -10,46 +10,46 @@ import java.util.ArrayList;
 
 public class WordleGameInstance {
 
-    private final Player player;
-    private final String word;
-    private final ArrayList<WordleGuess> guesses;
+    private Player player;
+    private String word;
+    private ArrayList<WordleGuess> guesses;
     boolean won = false;
 
     public WordleGameInstance(Player player) {
+        if(WordleAPI.wordleGameInstances.contains(this)) {
+            player.sendMessage(ChatColor.AQUA + "Finish your current Wordle game! Enter any word that is 5 chars long to make your next guess.");
+            return;
+        }
+        // If the WordleAPI static list of game instances doesn't contain this already, add this
+        WordleAPI.wordleGameInstances.add(this);
         System.out.println("New WordleGameInstance");
         this.player = player;
         guesses = new ArrayList<>(6);
         word = WordleAPI.hasCompletedSessionWord(player) ? WordleAPI.getRandomWord().toUpperCase() : WordleAPI.getSessionWord().toUpperCase();
         won = false;
         System.out.println("startGame");
-        setPlayerInstance(true);
+        // Value is >-1 if playing, -1 if not
+        int gameIndex = WordleAPI.wordleGameInstances.indexOf(this);
+        player.getPersistentDataContainer().set(Keys.hasInstanceKey, PersistentDataType.INTEGER, gameIndex);
         System.out.println(player.getName() + " has the word " + word);
         System.out.println("Index of game instance: " + WordleAPI.getIndexOfGameInstance(player));
         player.sendMessage(ChatColor.AQUA + "You have started a game of " + ChatColor.YELLOW + "Wordle! "
                 + ChatColor.AQUA + "Any messages you send that are 5 characters long will be intercepted and at play!\nEnter guess #1: ");
     }
 
-    public void endGameInstance() {
-        new WordleEnd().endGame(getPlayer(), this);
+    public void endGameInstance(boolean hasWon) {
+        System.out.println("endGame");
+        System.out.println("No longer playing Wordle!");
         WordleAPI.transferInstanceToPreviousInstances(this);
-        player.sendMessage(ChatColor.AQUA + "Would you like to share your results?\nUse '/wordle share'");
-    }
-
-    public void setPlayerInstance(boolean isPlaying) {
-        PersistentDataContainer pdc = player.getPersistentDataContainer();
-        // If false, removes this from WordleAPI's static list of game instances
-        if(!isPlaying) {
-            System.out.println("No longer playing Wordle!");
-            pdc.set(Keys.hasInstanceKey, PersistentDataType.INTEGER, -1);
-            WordleAPI.wordleGameInstances.remove(this);
-            return;
+        player.getPersistentDataContainer().set(Keys.hasInstanceKey, PersistentDataType.INTEGER, -1);
+        player.sendMessage(ChatColor.DARK_AQUA + "Your game has ended!");
+        player.sendMessage(ChatColor.DARK_AQUA + "Would you like to share your results?\nUse '/wordle share'");
+        WordleAPI.setSessionWordCompleted(player, true);
+        if(hasWon) {
+            WordleAPI.addToWinCount(player, 1);
+        } else {
+            WordleAPI.addToLossCount(player, 1);
         }
-
-        // If the WordleAPI static list of game instances doesn't contain this already, add this
-        if(!WordleAPI.wordleGameInstances.contains(this)) WordleAPI.wordleGameInstances.add(this);
-        // Value is >0 if playing, 0 if not
-        int gameIndex = WordleAPI.wordleGameInstances.indexOf(this);
-        pdc.set(Keys.hasInstanceKey, PersistentDataType.INTEGER, gameIndex);
     }
 
     public Player getPlayer() {
@@ -73,13 +73,13 @@ public class WordleGameInstance {
         if(isRight) {
             won = true;
             System.out.println("Player guessed right");
-            new WordleEnd().endGame(player, this);
+            this.endGameInstance(true);
             player.sendMessage(ChatColor.AQUA + "You guessed the word correctly!: " + ChatColor.DARK_GREEN + word);
             WordleAPI.addToWinCount(player, 1);
         } else if(guesses.size() >= 6) {
             won = false;
             System.out.println("Over guess limit");
-            new WordleEnd().endGame(player, this);
+            this.endGameInstance(false);
             player.sendMessage(ChatColor.AQUA + "You have run out of guesses! Your word was " + ChatColor.RED + word);
             WordleAPI.addToLossCount(player, 1);
         } else {

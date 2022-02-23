@@ -40,11 +40,6 @@ public class WordleGuess {
         player.sendMessage(ChatColor.AQUA + "Enter guess #" + (guessNumber + 1) + ": ");
     }
 
-    public void success(Player player, WordleGameInstance gameInstance) {
-        player.sendMessage(ChatColor.AQUA + "You are correct!");
-        gameInstance.setPlayerInstance(false);
-    }
-
     public String getFormattedGuess() {
         return formattedGuess;
     }

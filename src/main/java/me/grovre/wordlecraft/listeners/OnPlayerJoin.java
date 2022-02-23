@@ -13,7 +13,7 @@ public class OnPlayerJoin implements Listener {
 
         // Used to double make sure that the server didn't fail to check for any game instances
         Player player = event.getPlayer();
-        WordleAPI.removeFromGameInstances(player);
+        WordleAPI.wordleGameInstances.remove(WordleAPI.getPlayerGameInstance(player));
     }
 
 }

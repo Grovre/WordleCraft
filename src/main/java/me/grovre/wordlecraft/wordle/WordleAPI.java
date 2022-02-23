@@ -5,7 +5,6 @@ import me.grovre.wordlecraft.Keys;
 import me.grovre.wordlecraft.WordleCraft;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
-import org.checkerframework.checker.units.qual.K;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +21,7 @@ public class WordleAPI {
     public static void transferInstanceToPreviousInstances(WordleGameInstance gameInstance) {
         if(wordleGameInstances.remove(gameInstance)) {
             previousGameInstances.put(gameInstance.getPlayer().getUniqueId(), gameInstance);
+            correctGameInstanceIndices();
         }
     }
 
@@ -84,18 +84,21 @@ public class WordleAPI {
         return wordleGameInstances;
     }
 
-    public static void removeFromGameInstances(Player player) {
-        try {
-            Objects.requireNonNull(getPlayerGameInstance(player)).setPlayerInstance(false);
-        } catch (NullPointerException ignored) {}
-    }
-
     public static Integer getIndexOfGameInstance(Player player) {
         return player.getPersistentDataContainer().get(Keys.hasInstanceKey, PersistentDataType.INTEGER);
     }
 
     public static Integer getIndexOfGameInstance(WordleGameInstance gameInstance) {
         return gameInstance.getPlayer().getPersistentDataContainer().get(Keys.hasInstanceKey, PersistentDataType.INTEGER);
+    }
+
+    public static void correctGameInstanceIndices() {
+        for(int i = 0; i < wordleGameInstances.size(); i++) {
+            wordleGameInstances.get(i)
+                    .getPlayer()
+                    .getPersistentDataContainer()
+                    .set(Keys.hasInstanceKey, PersistentDataType.INTEGER, i);
+        }
     }
 
     public static boolean gameInstancesContains(Player player) {

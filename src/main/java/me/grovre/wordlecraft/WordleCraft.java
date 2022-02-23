@@ -41,10 +41,9 @@ public final class WordleCraft extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        // Removes all online players from any active game instances
-        Bukkit.getOnlinePlayers().forEach(WordleAPI::removeFromGameInstances);
         Bukkit.getOnlinePlayers().forEach(p -> WordleAPI.setSessionWordCompleted(p, false));
-        WordleAPI.wordleGameInstances.clear(); // just double-checking in case because idk if Bukkit even recognizes players on shutdown
+        WordleAPI.wordleGameInstances.clear();
+        WordleAPI.previousGameInstances.clear();
     }
 
     public static WordleCraft getPlugin() {

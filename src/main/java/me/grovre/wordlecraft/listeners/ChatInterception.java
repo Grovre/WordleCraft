@@ -17,11 +17,15 @@ public class ChatInterception implements Listener {
 
         WordleGameInstance gameInstance = WordleAPI.getPlayerGameInstance(player);
         if(gameInstance == null) {
+            System.out.println("No game instance found");
             return;
         }
 
         String guess = event.getMessage();
-        if(guess.length() != 5) return;
+        if(guess.length() != 5) {
+            System.out.println("Message is not 5 characters long");
+            return;
+        }
         System.out.println("Made a 5 char guess!");
 
         event.setCancelled(true);
