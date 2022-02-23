@@ -5,20 +5,25 @@ import me.grovre.wordlecraft.Keys;
 import me.grovre.wordlecraft.WordleCraft;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
+import org.checkerframework.checker.units.qual.K;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 public class WordleAPI {
 
-    // TODO Hashmap to save players' most recent game
     // Will mostly be used for '/wordle share'
 
     public static ArrayList<WordleGameInstance> wordleGameInstances = new ArrayList<>();
+    public static HashMap<UUID, WordleGameInstance> previousGameInstances = new HashMap<>();
+
+    public static void transferInstanceToPreviousInstances(WordleGameInstance gameInstance) {
+        if(wordleGameInstances.remove(gameInstance)) {
+            previousGameInstances.put(gameInstance.getPlayer().getUniqueId(), gameInstance);
+        }
+    }
 
     public static ArrayList<String> getAllWords() {
         // File ops
