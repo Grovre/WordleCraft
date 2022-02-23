@@ -1,6 +1,7 @@
 package me.grovre.wordlecraft.commands;
 
 import me.grovre.wordlecraft.Permissions;
+import me.grovre.wordlecraft.WordleCraft;
 import me.grovre.wordlecraft.wordle.WordleAPI;
 import me.grovre.wordlecraft.wordle.WordleGameInstance;
 import org.bukkit.Bukkit;
@@ -144,8 +145,10 @@ public class CommandUtil implements CommandExecutor {
                 return true;
             }
             player.sendMessage(ChatColor.AQUA + "Sharing your most recent game!");
+            String word = gi.getWord().equalsIgnoreCase(WordleAPI.getSessionWord()) ? ChatColor.RED + "the session word!" : ChatColor.DARK_AQUA + gi.getWord().toUpperCase() + ChatColor.AQUA;
             String s = ChatColor.AQUA + player.getName() + " wants to share their most recent Wordle game!\n"
-                    + "They " + (gi.hasWon() ? ChatColor.DARK_GREEN : ChatColor.RED) + ChatColor.BOLD + (gi.hasWon() ? " WON" : " LOST") + "!\n" + ChatColor.RESET
+                    + "The word was " + word + "\n"
+                    + ChatColor.AQUA + "They " + (gi.hasWon() ? ChatColor.DARK_GREEN : ChatColor.RED) + ChatColor.BOLD + (gi.hasWon() ? "WON" : "LOST") + "!\n" + ChatColor.RESET
                     + ChatColor.AQUA + (gi.hasWon() ? "It took " + ChatColor.DARK_AQUA + ChatColor.BOLD + gi.getGuesses().size() + "/6" + ChatColor.RESET + ChatColor.AQUA + " guesses!\n" : "")
                     + ChatColor.AQUA + player.getName() + " now has " + ChatColor.DARK_AQUA + ChatColor.BOLD + WordleAPI.getTotalGames(player) + ChatColor.RESET + ChatColor.AQUA + " total games of Wordle!\n"
                     + ChatColor.DARK_AQUA + "See more with '/wordle stats " + player.getName() + "'";
