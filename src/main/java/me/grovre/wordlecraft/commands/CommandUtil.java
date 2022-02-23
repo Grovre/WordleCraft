@@ -1,7 +1,6 @@
 package me.grovre.wordlecraft.commands;
 
 import me.grovre.wordlecraft.Permissions;
-import me.grovre.wordlecraft.WordleCraft;
 import me.grovre.wordlecraft.wordle.WordleAPI;
 import me.grovre.wordlecraft.wordle.WordleGameInstance;
 import org.bukkit.Bukkit;
@@ -22,6 +21,18 @@ public class CommandUtil implements CommandExecutor {
     public static Player lastWordlePlayerCommander;
     public static String[] lastArgsUsed;
 
+    /*
+    All possible current commands:
+    /wordle start
+    /wordle help
+    /wordle stop
+    /wordle set <Word>
+    /wordle set random
+    /wordle stats
+    /wordle stats <Player>
+    /wordle share
+     */
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player player = sender instanceof Player ? (Player) sender : null;
@@ -29,12 +40,10 @@ public class CommandUtil implements CommandExecutor {
 
         // Will throw indexOutOfBoundsException with everything trying to check the first argument. /wordle is not a command itself
         // so until then, just make it do '/wordle help'
-        // TODO Possible command for just 'wordle'?
         if(args.length == 0) {
             args = new String[]{"help"};
         }
 
-        // TODO arg tab completion
         if(args[0].equalsIgnoreCase("start")) {
             if(player == null) {
                 System.out.println("Command must be sent from a player!");

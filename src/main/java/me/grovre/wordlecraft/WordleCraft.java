@@ -1,6 +1,7 @@
 package me.grovre.wordlecraft;
 
 import me.grovre.wordlecraft.commands.CommandUtil;
+import me.grovre.wordlecraft.commands.TabCompletion;
 import me.grovre.wordlecraft.listeners.ChatInterception;
 import me.grovre.wordlecraft.listeners.OnPlayerLeave;
 import me.grovre.wordlecraft.wordle.WordleAPI;
@@ -33,6 +34,7 @@ public final class WordleCraft extends JavaPlugin {
         WordleAPI.wordleGameInstances.clear();
 
         Objects.requireNonNull(getServer().getPluginCommand("wordle")).setExecutor(new CommandUtil());
+        Objects.requireNonNull(getServer().getPluginCommand("wordle")).setTabCompleter(new TabCompletion());
 
         getServer().getPluginManager().registerEvents(new ChatInterception(), this);
         getServer().getPluginManager().registerEvents(new OnPlayerLeave(), this);
