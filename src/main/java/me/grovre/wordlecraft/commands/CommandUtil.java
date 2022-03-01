@@ -165,8 +165,6 @@ public class CommandUtil implements CommandExecutor {
             WordleAPI.previousGameInstances.remove(player.getUniqueId());
         }
 
-        // TODO Add more commands
-
         return true;
     }
 
